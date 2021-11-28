@@ -1,5 +1,7 @@
+import argparse
 import os
 import pickle
+import sys
 #from IPython import embed
 from tqdm import tqdm
 from itertools import combinations
@@ -37,18 +39,47 @@ def get_tree():
         return tree
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        parser = argparse.ArgumentParser(
+            description="Generator of Rad Names from Decent Paper Acronyms"
+        )
+        parser.add_argument(
+            "words",
+            type=str,
+            nargs="+",
+            help="Paper title words.",
+        )
+        parser.add_argument(
+            "--ordered",
+            action="store_true",
+            help="Preserve word order.",
+        )
+        parser.add_argument(
+            "--minwords",
+            type=int,
+            default=0,
+            help="Minimum number of used words. (default 0 => use all.)",
+        )
+        args = parser.parse_args()
+        words = args.words
+        preserve_order = args.ordered
+        use_all = args.minwords in (0, len(words))
+        minwords = 1
+        if not use_all:
+            minwords = args.minwords
+    else:
+        print()
+        print("Please input paper title words separated by spaces")
+        words = input(">").split(" ")
+
+        preserve_order = input("Preserve word order? y/n >") == "y"
+        use_all = input("Force use of all words? y/n >") == "y"
+        minwords = 1
+        if not use_all:
+            minwords = eval(input("Minimum number of used words: >"))
+
     tree = get_tree()
-
-    print()
-    print("Please input paper title words separated by spaces")
-    words = input(">").split(" ")
     words = [word.lower() for word in words]
-
-    preserve_order = input("Preserve word order? y/n >") == "y"
-    use_all = input("Force use of all words? y/n >") == "y"
-    minwords = 1
-    if not (use_all):
-        minwords = eval(input("Minimum number of used words: >"))
 
     orders = []
     if preserve_order and use_all:
