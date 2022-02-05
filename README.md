@@ -16,8 +16,9 @@ Well look no further, GRaNDPapA will take whatever buzzwords you want in the tit
 
 1. Install python 3
 2. Clone this repository
-3. Run `python3 main.py`
-4. Input the set of keywords you want in your acronym
+3. install dependencies `python3 -m pip install -r requirements.txt`
+4. Run `python3 main.py`
+5. Input the set of keywords you want in your acronym
 
 ### Extra parameters:
 
