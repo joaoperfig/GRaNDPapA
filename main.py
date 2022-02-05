@@ -41,7 +41,7 @@ def get_tree():
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         parser = argparse.ArgumentParser(
-            description="Generator of Rad Names from Decent Paper Acronyms"
+            description="GRaNDPapA: Generator of Rad Names from Decent Paper Acronyms"
         )
         parser.add_argument(
             "words",
@@ -50,18 +50,23 @@ if __name__ == "__main__":
             help="Paper title words.",
         )
         parser.add_argument(
+            "-o",
             "--ordered",
             action="store_true",
             help="Preserve word order.",
         )
         parser.add_argument(
+            "-m",
             "--minwords",
+            metavar="N",
             type=int,
             default=0,
             help="Minimum number of used words. (default 0 => use all.)",
         )
         parser.add_argument(
+            "-w",
             "--wordlist",
+            metavar="file",
             type=str,
             default="words.txt",
             help="Select wordlist. (defaults to words.txt)"
