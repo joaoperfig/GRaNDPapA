@@ -49,5 +49,5 @@ Paths down this intersected tree to final nodes are words that exist in the Engl
 ### Credits
 
 Developed for [Priberam Labs](https://labs.priberam.com/)  
-List of all English words by [dwyl](https://github.com/dwyl/english-words)
+List of all English words by [dwyl](https://github.com/dwyl/english-words/)  
 List of words from the English Wikipedia [Wiki Word Frequency](https://github.com/IlyaSemenov/wikipedia-word-frequency)
