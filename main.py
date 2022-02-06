@@ -14,7 +14,7 @@ word_tree = "words.pkl"
 
 
 def make_tree():
-    print("Constructing word tree")
+    print("Constructing word tree from {}.".format(raw_words))
     f = open(raw_words, "r")
     words = f.readlines()
     f.close()
@@ -27,7 +27,7 @@ def make_tree():
 def get_tree():
     try:
         f = open(word_tree, "rb")
-        print("Loading word tree")
+        print("Loading word tree from {}.".format(word_tree))
         tree = pickle.load(f)
         f.close()
         return tree
@@ -41,7 +41,7 @@ def get_tree():
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         parser = argparse.ArgumentParser(
-            description="Generator of Rad Names from Decent Paper Acronyms"
+            description="GRaNDPapA: Generator of Rad Names from Decent Paper Acronyms"
         )
         parser.add_argument(
             "words",
@@ -50,15 +50,26 @@ if __name__ == "__main__":
             help="Paper title words.",
         )
         parser.add_argument(
+            "-o",
             "--ordered",
             action="store_true",
             help="Preserve word order.",
         )
         parser.add_argument(
+            "-m",
             "--minwords",
+            metavar="N",
             type=int,
             default=0,
             help="Minimum number of used words. (default 0 => use all.)",
+        )
+        parser.add_argument(
+            "-w",
+            "--wordlist",
+            metavar="file",
+            type=str,
+            default="words.txt",
+            help="Select wordlist. (defaults to words.txt)"
         )
         args = parser.parse_args()
         words = args.words
@@ -67,6 +78,14 @@ if __name__ == "__main__":
         minwords = 1
         if not use_all:
             minwords = args.minwords
+
+        if os.path.exists(args.wordlist):
+            raw_words = args.wordlist
+            file_name, _ = os.path.basename(args.wordlist).split(".")
+            word_tree = file_name + ".pkl"
+        else:
+            print("Could not find wordlist, defaulting to words.txt.")
+
     else:
         print()
         print("Please input paper title words separated by spaces")
